@@ -1,0 +1,96 @@
+{% extends 'info/base.html' %}
+{% block content %}
+
+{% load static %}
+<form action="#" method="post" name="punchform" onsubmit="validatepunch()">
+  {% csrf_token %}
+  <div class="card mb-3">
+    <div class="card-header">
+      <i class="fas fa-table"></i>
+      <b></b>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>Student name</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr>
+              <td>{{ request.user.student.name }}</td>
+              <td>
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+
+                  {% ifequal obj.status False %}
+                  <label class="btn btn-outline-success ">
+
+                    <input type="radio" name="punch" id="option1" value="punchin"> PunchIN
+
+                  </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                  {% endifequal %}
+
+
+
+                  {% ifequal obj.status True %}
+                  <textarea id="review" name="review" placeholder="Report your work here!!"></textarea><br>
+                  <label class="btn btn-outline-danger">
+
+
+                    <input type="radio" name="punch" id="option2" value="punchout"> PunchOUT
+
+
+                  </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                  {% endifequal %}
+
+
+
+                </div>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+  <input class="btn btn-success" type="submit" value="PUNCH">
+</form>
+
+<!-- <script src="{% static '/info/bootstrap/vendor/jquery-easing/validation.js' %}"></script> -->
+
+
+
+{% ifequal error "no" %}
+<script type="text/javascript">
+  alert("Punched IN successfully");
+  window.location = "{% url 'p_attendance' request.user.id %}";
+</script>
+{% endifequal %}
+{% ifequal error "yes" %}
+<script type="text/javascript">
+  alert("There is some issue, cannot take attendance");
+  window.location = "{% url 'p_attendance' request.user.id %}";
+</script>
+{% endifequal %}
+
+{% ifequal error1 "no" %}
+<script type="text/javascript">
+  alert("Punched OUT successfully");
+  window.location = "{% url 'p_attendance' request.user.id %}";
+</script>
+{% endifequal %}
+{% ifequal error1 "yes" %}
+<script type="text/javascript">
+  alert("Please provide review of your work to punch OUTw");
+  window.location = "{% url 'p_attendance' request.user.id %}";
+</script>
+{% endifequal %}
+{% endblock %}

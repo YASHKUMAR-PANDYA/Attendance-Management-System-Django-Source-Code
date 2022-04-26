@@ -1,0 +1,4 @@
+.vscode
+CollegeERP/__pycache__/
+info/__pycache__/
+info/migrations/

@@ -1,0 +1,56 @@
+{% extends 'info/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="card mb-3">
+  <div class="card-header">
+    <i class="fas fa-table"></i>
+    <b>LOG</b>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+          <tr>
+
+            <th style="width: 20%">Student Name</th>
+            <th style="width: 10%">PunchIN</th>
+            <th style="width: 10%">PunchOUT</th>
+            <th style="width: 15%">PunchOUT</th>
+            <th style="width: 15%">PunchOUT</th>
+            <th style="width: 30%">PunchOUT</th>
+
+        </thead>
+        <tbody>
+          {% for sc in sc_list %}
+          <tr>
+
+            <td>{{ user.username }}</td>
+
+            <td class="p-3 mb-2 bg-success text-white">{{ sc.punchin_count }}</td>
+
+            <td class="p-3 mb-2 bg-danger text-white">{{ sc.punchout_count }}</td>
+
+            <td class="p-3 mb-2 bg-success text-white">{{ sc.PunchIn }}</td>
+
+            <td class="p-3 mb-2 bg-danger text-white">{{ sc.PunchOut }}</td>
+
+            <td class="p-3 mb-2 bg-dark text-white">{{ sc.PunchOutReview }}</td>
+
+
+          </tr>
+          {% empty %}
+          <p>student has not punched in at all</p>
+
+
+          {% endfor %}
+
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
